@@ -69,6 +69,6 @@ while True:
     print "X ROTATION: ", get_x_rotation(accel_xout_scaled, accel_yout_scaled,accel_zout_scaled), "°"
     print "Y ROTATION: ", get_y_rotation(accel_xout_scaled, accel_yout_scaled,accel_zout_scaled), "°"
 
-    print "==========================================="
-    print "==========================================="
+    #print "==========================================="
+    #print "==========================================="
     time.sleep(0.5)
