@@ -22,7 +22,7 @@ def callback(gps_datas, gyro_datas):
 def listener():
 	rospy.init_node('buggyStoreDataNode', anonymous=True)
 	gyro_sub = message_filters.Subscriber('MPU6050', GyroData)
-        gps_sub = message_filters.Subscriber('buggyGPSublox', GPSData) # 'ublox_gps_rover', NavSatFix)
+        gps_sub = message_filters.Subscriber('buggyGPSublox', 'ublox_gps_rover', NavSatFix)
 	ats = message_filters.ApproximateTimeSynchronizer([gps_sub, gyro_sub], 10, 0.1)
 	ats.registerCallback(callback)
 	rospy.spin()

@@ -1,9 +1,0 @@
-<launch>
-
-	<group ns="Buggy">
-		<node pkg="buggy_pkg" name="BuggyStore" type="buggy_mainListener.py"/>
-		<node pkg="buggy_pkg" name="BuggyGyro" type="MPU6050_talker.py"/>
-		<node pkg="buggy_pkg" name="BuggyGPS" type="buggy_dummyGPS.py"/>
-	</group>
-
-</launch>
