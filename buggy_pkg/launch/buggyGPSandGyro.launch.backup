@@ -10,9 +10,17 @@
 	<group ns="Buggy">
 		<node pkg="buggy_pkg" name="BuggyStore" type="buggy_mainListener.py" output="$(arg output)"/>
 		<node pkg="buggy_pkg" name="BuggyGyro" type="MPU6050_talker.py"/>
-		<node pkg="nmea_navsat_driver" name="nmeaTranslator" type="nmea_serial_driver">
-			<param name="~port" type="string" value="/dev/ttyACM0"/>
-			<param name="~baud" type="int" value="19200"/>
-		</node>
 	</group>
+
+	<group ns="ublox_gps">
+		<node pkg="ublox_gps" type="ublox_gps" name="$(arg node_name)"
+        			output="$(arg output)" 
+        			clear_params="$(arg clear_params)"
+        			respawn="$(arg respawn)" 
+        			respawn_delay="$(arg respawn_delay)">
+    			<rosparam command="load" 
+              			file="$(find ublox_gps)/config/$(arg param_file_name).yaml" />
+  		</node>
+	</group>
+
 </launch>
