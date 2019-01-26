@@ -171,6 +171,7 @@ catkin_install_python(PROGRAMS
     src/buggy_mainListener.py 
     src/MPU6050_talker.py
     src/buggy_dummyGPS.py
+    src/buggy_waitInterrupt.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

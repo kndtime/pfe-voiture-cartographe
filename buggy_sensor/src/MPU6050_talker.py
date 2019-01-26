@@ -49,7 +49,7 @@ def MPU_talker():
 	
 	publisher = rospy.Publisher('MPU6050', GyroData, queue_size=10)
 	rospy.init_node('MPU6050Talker', anonymous=True)
-	rate = rospy.Rate(1) #1 mesure par seconde
+	rate = rospy.Rate(1)
 	while not rospy.is_shutdown():
 			gyro_xout = read_word_2c(bus, address, 0x43)
 			gyro_yout = read_word_2c(bus, address, 0x45)

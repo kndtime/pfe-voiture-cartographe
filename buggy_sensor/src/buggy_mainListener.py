@@ -13,18 +13,35 @@ import message_filters
 current_date = '{date:%Y-%B-%d-%I-%M}'.format(date=datetime.datetime.now())
 filename = "Buggy__%s.csv" % (current_date)
 spamwriter = csv.writer(open(filename, 'w'))
+snapshot = ""
 
-def callback(gps_datas, gyro_datas):
-	msg = "{}, {}, {}, {}".format(gps_datas.latitude, gps_datas.longitude, gyro_datas.X, gyro_datas.Y)
-	rospy.loginfo(rospy.get_caller_id() + "received : %s", msg)
-	spamwriter.writerow([gps_datas.latitude, gps_datas.longitude, gyro_datas.X, gyro_datas.Y])
+X = 0.0
+Y = 0.0
+lat = 0.0
+lon = 0.0
+
+def writeOnCSV(msg):
+	#spamwriter.writerow([snapshot])
+	snapshot = "{}, {}, {}, {}".format(lat, lon, X, Y)
+	rospy.loginfo("PUBLISH INTERRUPT received : %s", snapshot)
+
+def gps_callback(gps_datas):
+	global lat
+	lat = gps_datas.latitude 
+	global lon
+	lon = gps_datas.longitude
+
+def gyro_callback(gyro_datas):
+	global X
+	X = gyro_datas.X
+	global Y
+	Y = gyro_datas.Y
 
 def listener():
 	rospy.init_node('buggyStoreDataNode', anonymous=True)
-	gyro_sub = message_filters.Subscriber('MPU6050', GyroData)
-        gps_sub = message_filters.Subscriber('buggyGPSublox', GPSData) # 'ublox_gps_rover', NavSatFix)
-	ats = message_filters.ApproximateTimeSynchronizer([gps_sub, gyro_sub], 10, 0.1)
-	ats.registerCallback(callback)
+	gyro_sub = rospy.Subscriber('MPU6050', GyroData, callback=gyro_callback)
+        gps_sub = rospy.Subscriber('buggyGPSublox', GPSData, callback=gps_callback) # 'ublox_gps_rover', NavSatFix)
+	interrupt_sub = rospy.Subscriber('buggyInterrupt', String, writeOnCSV)
 	rospy.spin()
 
 if __name__ == '__main__':

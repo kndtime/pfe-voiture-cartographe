@@ -15,7 +15,7 @@ def get_longitude():
 def gps_talker():
 	publisher = rospy.Publisher('buggyGPSublox', GPSData, queue_size=10)
 	rospy.init_node('BuggyGPSTalker', anonymous=True)
-	rate = rospy.Rate(1) #1 mesure par seconde
+	rate = rospy.Rate(1)
 	while not rospy.is_shutdown():
 		lat = get_latitude()
 		lon = get_longitude()
@@ -34,5 +34,6 @@ def gps_talker():
 if __name__ == '__main__':
 	try:
 		gps_talker()
+		rospy.spin()
 	except rospy.ROSInterruptException:
 		pass
