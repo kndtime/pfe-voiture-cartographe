@@ -9,11 +9,32 @@ import fileinput
 import csv
 import datetime
 import message_filters
+import engineio
+import eventlet
+
 
 current_date = '{date:%Y-%B-%d-%I-%M}'.format(date=datetime.datetime.now())
 filename = "Buggy__%s.csv" % (current_date)
 spamwriter = csv.writer(open(filename, 'w'))
 snapshot = ""
+
+sio = socketio.Server()
+app = socketio.WSGIApp(eio, static_files={
+    '/': {'content_type': 'text/html', 'filename': 'index.html'}
+})
+
+
+@sio.on('connect')
+def connect(sid, environ):
+    print('connect ', sid)
+
+@sio.on('my message')
+def message(sid, data):
+    print('message ', data)
+
+@sio.on('disconnect')
+def disconnect(sid):
+    print('disconnect ', sid)
 
 X = 0.0
 Y = 0.0
@@ -45,4 +66,5 @@ def listener():
 	rospy.spin()
 
 if __name__ == '__main__':
+	eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
 	listener()
