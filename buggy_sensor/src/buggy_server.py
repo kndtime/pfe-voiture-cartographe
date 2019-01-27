@@ -33,11 +33,11 @@ def disconnect(sid):
 
 @socketio.on('sensor')
 def handle_sensor(json):
-    send(json, json=True)
+    send(json)
 
 @socketio.on('info')
 def handle_info(json):
-    send(json, json=True)
+    send(json)
 
 def info_sensor(lat, lon, X, Y):
     data = {
