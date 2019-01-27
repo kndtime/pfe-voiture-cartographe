@@ -74,7 +74,7 @@ def MPU_talker():
 			msg.Y = rotY
 			msg.Z = rotZ
 			msg.header = header
-			rospy.loginfo(strmsg)
+			#rospy.loginfo(strmsg)
 			publisher.publish(msg)
 			rate.sleep()
 

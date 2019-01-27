@@ -5,6 +5,7 @@
 		<node pkg="buggy_sensor" name="BuggyGyro" 		type="MPU6050_talker.py"/>
 		<node pkg="buggy_sensor" name="BuggyGPS" 		type="buggy_dummyGPS.py"/>
 		<node pkg="buggy_sensor" name="BuggyInterrupt" 		type="buggy_waitInterrupt.py"/>
+		<node pkg="buggy_sensor" name="BuggyServerNode"		type="buggy_server.py"/>
 	</group>
 
 </launch>

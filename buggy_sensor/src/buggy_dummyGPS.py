@@ -27,7 +27,7 @@ def gps_talker():
 		msg.header = header
 
 		strmsg = "{}, {}".format(lat, lon)
-		rospy.loginfo(strmsg)
+		#rospy.loginfo(strmsg)
 		publisher.publish(msg)
 		rate.sleep()
 
