@@ -21,7 +21,7 @@ lat = 0.0
 lon = 0.0
 
 def writeOnCSV(msg):
-	#spamwriter.writerow([snapshot])
+	spamwriter.writerow([snapshot])
 	snapshot = "{}, {}, {}, {}".format(lat, lon, X, Y)
 	rospy.loginfo("PUBLISH INTERRUPT received : %s", snapshot)
 
