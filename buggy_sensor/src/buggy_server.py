@@ -21,15 +21,15 @@ import socketio
 sio = socketio.AsyncClient()
 
 @sio.on('connect')
-async def connect(sid, environ):
+def connect(sid, environ):
     print('connect ', sid)
 
 @sio.on('my message')
-async def message(sid, data):
+def message(sid, data):
     print('message ', data)
 
 @sio.on('disconnect')
-async def disconnect(sid):
+def disconnect(sid):
     print('disconnect ', sid)
 
 @sio.on('sensor')
