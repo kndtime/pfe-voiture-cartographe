@@ -117,7 +117,7 @@ def sendToClient(snapshot):
 
 
 threading.Thread(target=lambda: rospy.init_node('buggyServer', disable_signals=True)).start()
-rospy.Subscriber('buggySnapshot', Snapshot, sendToClient)
+rospy.Subscriber('buggyServer', Snapshot, sendToClient)
 
 
 if __name__ == '__main__':
