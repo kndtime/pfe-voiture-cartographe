@@ -5,6 +5,7 @@ from flask_socketio import SocketIO
 from std_msgs.msg import String
 from buggy_sensor.msg import GyroData, GPSData, Snapshot
 from sensor_msgs.msg import NavSatFix
+
 import std_msgs
 import rospy
 import fileinput
@@ -15,28 +16,28 @@ import logging
 import os
 import time
 import threading
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+import socketio
 
-@socketio.on('connect')
-def connect(sid, environ):
+sio = socketio.AsyncClient()
+
+@sio.on('connect')
+async def connect(sid, environ):
     print('connect ', sid)
 
-@socketio.on('my message')
-def message(sid, data):
+@sio.on('my message')
+async def message(sid, data):
     print('message ', data)
 
-@socketio.on('disconnect')
-def disconnect(sid):
+@sio.on('disconnect')
+async def disconnect(sid):
     print('disconnect ', sid)
 
-@socketio.on('sensor')
-def handle_sensor(json):
+@sio.on('sensor')
+async def handle_sensor(json):
     send(json)
 
-@socketio.on('info')
-def handle_info(json):
+@sio.on('info')
+async def handle_info(json):
     send(json)
 
 def info_sensor(lat, lon, X, Y):
@@ -120,5 +121,5 @@ rospy.Subscriber('buggySnapshot', Snapshot, sendToClient)
 
 
 if __name__ == '__main__':
-	socketio.run(app, host='localhost', port=5000)
+	#socketio.run(app, host='localhost', port=5000)
 	rospy.loginfo("test")
