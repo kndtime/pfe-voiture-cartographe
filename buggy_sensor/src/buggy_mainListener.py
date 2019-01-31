@@ -12,50 +12,21 @@ import message_filters
 import logging
 import os
 import time
-from flask import Flask, render_template
-from flask_socketio import SocketIO
 
 
 current_date = '{date:%Y-%B-%d-%I-%M}'.format(date=datetime.datetime.now())
 filename = "Buggy__%s.csv" % (current_date)
 spamwriter = csv.writer(open(filename, 'w'))
-snapshot = ""
 
-#app = Flask(__name__)
-#app.config['SECRET_KEY'] = 'secret!'
-#socketio = SocketIO(app)
-#
-#@socketio.on('connect')
-#def connect(sid, environ):
-#    print('connect ', sid)
-#
-#@socketio.on('my message')
-#def message(sid, data):
-#    print('message ', data)
-#
-#@socketio.on('disconnect')
-#def disconnect(sid):
-#    print('disconnect ', sid)
-#
-#@socketio.on('sensor')
-#def handle_sensor(json):
-#    send(json, json=True)
-#
-#@socketio.on('info')
-#def handle_info(json):
-#    send(json, json=True)
-#
 X = 0.0
 Y = 0.0
 lat = 0.0
 lon = 0.0
 
 def writeOnCSV(msg):
-	snapshot = "{}, {}, {}, {}".format(lat, lon, X, Y)
-	rospy.loginfo("PUBLISH INTERRUPT received %s", snapshot)
-	spamwriter.writerow([snapshot])
-	#handle_sensor(info_sensor(lat, lon, X, Y))
-	#handle_info(info_data())
+	snapshot = "lat = {}, lon = {}, X = {}, Y = {}".format(lat, lon, X, Y)
+	rospy.loginfo(snapshot)
+	spamwriter.writerow([lat, lon, X, Y])
 	pub = rospy.Publisher('buggyServer', Snapshot, queue_size=10)
 	msg = Snapshot()
 	msg.latitude = lat
@@ -83,12 +54,9 @@ def gyro_callback(gyro_datas):
 def listener():
 	rospy.init_node('buggyStoreDataNode', anonymous=True)
 	gyro_sub = rospy.Subscriber('MPU6050', GyroData, callback=gyro_callback)
-        gps_sub = rospy.Subscriber('buggyGPSublox', GPSData, callback=gps_callback) # 'ublox_gps_rover', NavSatFix)
+        gps_sub = rospy.Subscriber('fix', NavSatFix, callback=gps_callback)
 	interrupt_sub = rospy.Subscriber('buggyInterrupt', String, callback=writeOnCSV)
-	#rospy.loginfo("lol")
 	rospy.spin()
 
 if __name__ == '__main__':
-	#socketio.run(app, host='localhost', port=5000)
-	rospy.loginfo("test1")
 	listener()

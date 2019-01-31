@@ -6,6 +6,7 @@ from std_msgs.msg import String
 from buggy_sensor.msg import GyroData, GPSData, Snapshot
 from sensor_msgs.msg import NavSatFix
 
+import json
 import std_msgs
 import rospy
 import fileinput
@@ -18,26 +19,20 @@ import time
 import threading
 import socketio
 
-sio = socketio.AsyncClient()
 
-@sio.on('connect')
 def connect(sid, environ):
     print('connect ', sid)
 
-@sio.on('my message')
 def message(sid, data):
     print('message ', data)
 
-@sio.on('disconnect')
 def disconnect(sid):
     print('disconnect ', sid)
 
-@sio.on('sensor')
-async def handle_sensor(json):
+def handle_sensor(json):
     send(json)
 
-@sio.on('info')
-async def handle_info(json):
+def handle_info(json):
     send(json)
 
 def info_sensor(lat, lon, X, Y):

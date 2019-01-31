@@ -1,11 +1,15 @@
 <launch>
 
 	<group ns="Buggy">
-		<node pkg="buggy_sensor" name="BuggyStore" 		type="buggy_mainListener.py"/>
+		<node pkg="buggy_sensor" name="BuggyStore" 		type="buggy_mainListener.py"	output="screen"/>
 		<node pkg="buggy_sensor" name="BuggyGyro" 		type="MPU6050_talker.py"/>
 		<node pkg="buggy_sensor" name="BuggyGPS" 		type="buggy_dummyGPS.py"/>
-		<node pkg="buggy_sensor" name="BuggyInterrupt" 		type="buggy_waitInterrupt.py"/>
+		<node pkg="buggy_sensor" name="BuggyInterrupt" 		type="buggy_waitInterrupt.py"	output="screen"/>
 		<node pkg="buggy_sensor" name="BuggyServerNode"		type="buggy_server.py"/>
+		<node pkg="nmea_navsat_driver" name="nmeaTranslator" type="nmea_serial_driver">
+			<param name="~port" type="string" value="/dev/ttyACM0"/>
+			<param name="~baud" type="int" value="19200"/>
+		</node>
 	</group>
 
 </launch>

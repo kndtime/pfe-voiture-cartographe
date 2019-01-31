@@ -10,9 +10,10 @@ def waitInterrupt():
 	pub = rospy.Publisher('buggyInterrupt', String, queue_size=10)
 	msg = "toto"
 	while not rospy.is_shutdown():
-		#rospy.loginfo("msg")
-		pub.publish(msg)
+		rospy.sleep(2)
+		rospy.loginfo("STOP")
 		rospy.sleep(1)
+		pub.publish(msg)
 
 if __name__ == '__main__':
 	try:
