@@ -18,13 +18,22 @@ def callback(gps_datas, gyro_datas):
 	msg = "{}, {}, {}, {}".format(gps_datas.latitude, gps_datas.longitude, gyro_datas.X, gyro_datas.Y)
 	rospy.loginfo(rospy.get_caller_id() + "received : %s", msg)
 	spamwriter.writerow([gps_datas.latitude, gps_datas.longitude, gyro_datas.X, gyro_datas.Y])
+	rospy.loginfo(gps_datas)
+
+def gyro(gyro_data):
+	rospy.init_mode('buggyStoreDataNode', anonymous=True)
+	rospy.loginfo(gyro_data.x)
+
+def gps(gps_data):
+	ropsy.loginfo(gps_data.latitude)
 
 def listener():
 	rospy.init_node('buggyStoreDataNode', anonymous=True)
-	gyro_sub = message_filters.Subscriber('MPU6050', GyroData)
-        gps_sub = message_filters.Subscriber('buggyGPSublox', 'ublox_gps_rover', NavSatFix)
-	ats = message_filters.ApproximateTimeSynchronizer([gps_sub, gyro_sub], 10, 0.1)
-	ats.registerCallback(callback)
+	gyro_sub = message_filters.Subscriber('MPU6050', GyroData, callback=gyro)
+	gps_sub = message_filters.Subscriber('sensor_msgs/NavSatFix', NavSatFix, callback=gps)
+	#ats = message_filters.ApproximateTimeSynchronizer([gps_sub, gyro_sub], 10, 0.1)
+	#ats.registerCallback(callback)
+	rospy.loginfo("Listener setup")
 	rospy.spin()
 
 if __name__ == '__main__':

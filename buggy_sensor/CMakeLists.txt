@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    GyroData.msg
    GPSData.msg
+   Snapshot.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -172,6 +173,7 @@ catkin_install_python(PROGRAMS
     src/MPU6050_talker.py
     src/buggy_dummyGPS.py
     src/buggy_waitInterrupt.py
+    src/buggy_server.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
