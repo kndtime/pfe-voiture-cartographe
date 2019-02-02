@@ -12,6 +12,7 @@ import message_filters
 import logging
 import os
 import time
+import json
 
 
 current_date = '{date:%Y-%B-%d-%I-%M}'.format(date=datetime.datetime.now())
@@ -27,29 +28,33 @@ def writeOnCSV(msg):
 	snapshot = "lat = {}, lon = {}, X = {}, Y = {}".format(lat, lon, X, Y)
 	rospy.loginfo(snapshot)
 	spamwriter.writerow([lat, lon, X, Y])
-	pub = rospy.Publisher('buggyServer', Snapshot, queue_size=10)
-	msg = Snapshot()
-	msg.latitude = lat
-	msg.longitude = lon
-	msg.X = X
-	msg.Y = Y
-	msg.header = std_msgs.msg.Header()
-	pub.publish(msg)
+	pub = rospy.Publisher('buggyServer1', String, queue_size=10)
+	pub.publish(info_sensor())
 
+def info_sensor():
+	data = {
+	   'gps' : {
+		'lat' : lat,
+		'lng' : lon
+	    },
+            'gyro' : {
+		'X' : X,
+		'Y' : Y
+	    }
+	}
+	return json.dumps(data)
 
 def gps_callback(gps_datas):
 	global lat
 	lat = gps_datas.latitude
 	global lon
 	lon = gps_datas.longitude
-	#rospy.loginfo("{}, {}".format(lat, lon))
 
 def gyro_callback(gyro_datas):
 	global X
 	X = gyro_datas.X
 	global Y
 	Y = gyro_datas.Y
-	#rospy.loginfo("{}, {}".format(X, Y))
 
 def listener():
 	rospy.init_node('buggyStoreDataNode', anonymous=True)

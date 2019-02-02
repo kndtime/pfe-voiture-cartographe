@@ -18,7 +18,9 @@ import os
 import time
 import threading
 import socketio
+import psutil
 
+period = 1
 
 def connect(sid, environ):
     print('connect ', sid)
@@ -105,16 +107,14 @@ def info_data():
 
     return json.dumps(data)
 
-def sendToClient(snapshot):
-	rospy.loginfo("{},{},{},{}".format(snapshot.latitude, snapshot.longitude, snapshot.X, snapshot.Y))
-	handle_sensor(info_sensor(snapshot.latitude, snapshot.longitude, snapshot.X, snapshot.Y))
-	handle_info(info_data())
-
-
-threading.Thread(target=lambda: rospy.init_node('buggyServer', disable_signals=True)).start()
-rospy.Subscriber('buggyServer', Snapshot, sendToClient)
-
+def sendInfoToServer():
+	rospy.init_node('testAxel', anonymous=True)
+	pub = rospy.Publisher('testAxel', String, queue_size=10)
+	rate = rospy.Rate(10)
+	while not rospy.is_shutdown():
+	    pub.publish(info_data())
+	    rate.sleep()
 
 if __name__ == '__main__':
-	#socketio.run(app, host='localhost', port=5000)
-	rospy.loginfo("test")
+	sendInfoToServer();
+        rospy.loginfo("test")
