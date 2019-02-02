@@ -12,7 +12,7 @@ Ce projet utililse le framework ROS pour mesurer la pente et les dévers des tro
 Pour pouvoir utiliser ce projet, il faut: 
 * une raspberry pi (avec raspbian ou Ubuntu Mate);
 * y brancher un gyroscope MPU6050 en I2C et un GPS Ublox c94-m8p en USB;
-* y installer ROS;
+* y installer ROS kinetic;
 * cloner ce projet dans le répertoire de travail ROS;
 * cloner le driver ROS NMEA disponible [ici](https://github.com/ros-drivers/nmea_navsat_driver) dans le répertoire de travail ROS;
 * installer la carte et les capteurs sur un vecteur mobile (potentiellement motorisé), de façon à ce que le gyroscope soit droit.
