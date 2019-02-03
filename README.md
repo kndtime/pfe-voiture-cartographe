@@ -18,9 +18,13 @@ Pour pouvoir utiliser ce projet, il faut:
 * installer la carte et les capteurs sur un vecteur mobile (potentiellement motorisé), de façon à ce que le gyroscope soit droit.
 
 ## Utilisation
-Pour pouvoir lancer ce projet lancer les commandes suivantes:
+Pour pouvoir lancer ce projet, il faut d'abord le compiler après l'avoir cloné:
 ```
 $ cd ~/<repertoire_de_travail_catkin>/
+$ catkin_make
+```
+puis lancer les commandes suivantes:
+```
 $ source devel/setup.bash
 $ roslaunch buggy_sensor buggySensorLaunch.launch
 ```
