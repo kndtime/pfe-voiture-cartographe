@@ -1,41 +1,90 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PFE VOITURE CARTOGRAPHE -- Viewer
+=======================
 
-## Available Scripts
+## Introduction
+Ce projet fut développé pour notre PFE à l'EPITA.
+Son but est d'automatiser la mesure des pentes et des dévers des trottoirs.
+Cette partie regroupe le code pour la visualization des données.
 
-In the project directory, you can run:
+## Pré-requis
 
-### `npm start`
+Pour le developpement, vous aurez uniquement besoin d'avoir Node.js d'installé. Et pensez à utiliser une config editor approprié [Editorconfig](http://editorconfig.org/)
+(pas obligatoire).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Node
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+[Node](http://nodejs.org/) est vraiment facile à installer et inclus maintenant [NPM](https://npmjs.org/).
+VOus devriez être capable d'utiliser les commandes suivantes lors après installation.
 
-### `npm test`
+    $ node --version
+    v0.10.24
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    $ npm --version
+    1.3.21
 
-### `npm run build`
+#### Installation de Node sur OS X
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Vous aurez besoin d'utiliser Terminal. Sur OSX, vous pouvez l'ouvrir avec ce chemin par défaut.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+`/Applications/Utilities/Terminal.app`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Intallez [Homebrew](http://brew.sh/), si ce n'est pas déjà fait avec la commande suivante.
 
-### `npm run eject`
+    $ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Si tout a bien fonctionnée, vous pouvez lancer
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    brew install node
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Installation de Node sur Linux
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    sudo apt-get install python-software-properties
+    sudo add-apt-repository ppa:chris-lea/node.js
+    sudo apt-get update
+    sudo apt-get install nodejs
+
+#### Installation de Node sur Windows
+
+Allez sur le [site officiel de Node.js](http://nodejs.org/) et télécharger l'installeur.
+Evidemment, ayez sur d'avoir git de disponible dans votre path car 'npm' en aura sans doûte besoin.
+
+---
+
+## Installation des sources
+
+    $ git clone https://gitlab.com/kinl27/pfe-voiture-cartographe.git
+    $ cd pfe-voiture-cartographe/viewver
+    $ npm install
+
+## Start & watch
+
+    $ npm start
+
+## Compiler vers prod
+
+    $ npm run build
+
+## Mise à jour des dépendences
+
+Certains paquets sont souvent mis à jours, n'hésitez donc pas à utiliser `npm prune` & `npm install`.
+
+    $ git pull
+    $ npm prune
+    $ npm install
+
+Vous pouvez combiner ces trois commandes en faisant :
+
+    $ npm run pull
+
+## Languages & tools
+
+### JavaScript
+
+- [React](http://facebook.github.io/react) is used for UI.
+
+### Template
+
+- [Material Dashboard React ](https://github.com/creativetimofficial/material-dashboard-react) utilisé comme base pour réaliser des vues un minimun jolies.
 
 ## Learn More
 
